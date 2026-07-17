@@ -1,0 +1,30 @@
+{
+  "numbers": [
+    { "value": 1, "label": "Një", "audio": "audio/numbers/1.mp3" },
+    { "value": 2, "label": "Dy", "audio": "audio/numbers/2.mp3" },
+    { "value": 3, "label": "Tre", "audio": "audio/numbers/3.mp3" },
+    { "value": 4, "label": "Katër", "audio": "audio/numbers/4.mp3" },
+    { "value": 5, "label": "Pesë", "audio": "audio/numbers/5.mp3" },
+    { "value": 6, "label": "Gjashtë", "audio": "audio/numbers/6.mp3" },
+    { "value": 7, "label": "Shtatë", "audio": "audio/numbers/7.mp3" },
+    { "value": 8, "label": "Tetë", "audio": "audio/numbers/8.mp3" },
+    { "value": 9, "label": "Nëntë", "audio": "audio/numbers/9.mp3" },
+    { "value": 10, "label": "Dhjetë", "audio": "audio/numbers/10.mp3" }
+  ],
+  "foods": [
+    { "id": "apple", "label": "Mollë", "category": "fruit", "audio": "audio/foods/apple.mp3", "image": "items/apple.png", "countImages": "counts/apple/{count}.png" },
+    { "id": "banana", "label": "Banane", "category": "fruit", "audio": "audio/foods/banana.mp3", "image": "items/banana.png", "countImages": "counts/banana/{count}.png" },
+    { "id": "orange", "label": "Portokall", "category": "fruit", "audio": "audio/foods/orange.mp3", "image": "items/orange.png", "countImages": "counts/orange/{count}.png" },
+    { "id": "pear", "label": "Dardhë", "category": "fruit", "audio": "audio/foods/pear.mp3", "image": "items/pear.png", "countImages": "counts/pear/{count}.png" },
+    { "id": "strawberry", "label": "Luleshtrydhe", "category": "fruit", "audio": "audio/foods/strawberry.mp3", "image": "items/strawberry.png", "countImages": "counts/strawberry/{count}.png" },
+    { "id": "grapes", "label": "Rrush", "category": "fruit", "audio": "audio/foods/grapes.mp3", "image": "items/grapes.png", "countImages": "counts/grapes/{count}.png" },
+    { "id": "watermelon", "label": "Shalqi", "category": "fruit", "audio": "audio/foods/watermelon.mp3", "image": "items/watermelon.png", "countImages": "counts/watermelon/{count}.png" },
+    { "id": "cherry", "label": "Qershi", "category": "fruit", "audio": "audio/foods/cherry.mp3", "image": "items/cherry.png", "countImages": "counts/cherry/{count}.png" },
+    { "id": "carrot", "label": "Karotë", "category": "vegetable", "audio": "audio/foods/carrot.mp3", "image": "items/carrot.png", "countImages": "counts/carrot/{count}.png" },
+    { "id": "tomato", "label": "Domate", "category": "vegetable", "audio": "audio/foods/tomato.mp3", "image": "items/tomato.png", "countImages": "counts/tomato/{count}.png" },
+    { "id": "cucumber", "label": "Kastravec", "category": "vegetable", "audio": "audio/foods/cucumber.mp3", "image": "items/cucumber.png", "countImages": "counts/cucumber/{count}.png" },
+    { "id": "potato", "label": "Patate", "category": "vegetable", "audio": "audio/foods/potato.mp3", "image": "items/potato.png", "countImages": "counts/potato/{count}.png" },
+    { "id": "broccoli", "label": "Brokoli", "category": "vegetable", "audio": "audio/foods/broccoli.mp3", "image": "items/broccoli.png", "countImages": "counts/broccoli/{count}.png" },
+    { "id": "pepper", "label": "Spec", "category": "vegetable", "audio": "audio/foods/pepper.mp3", "image": "items/pepper.png", "countImages": "counts/pepper/{count}.png" }
+  ]
+}

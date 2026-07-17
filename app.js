@@ -37,7 +37,7 @@ function createAppCard(app, index) {
   title.className = "app-title";
   title.textContent = app.label;
 
-  const details = document.createElement("span");
+  const details = document.createElement("div");
   details.className = "app-details";
   details.append(title);
 

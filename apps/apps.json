@@ -5,5 +5,19 @@
     "url": "apps/color-match/",
     "color": "#ffe0e9",
     "version": "1.0.0"
+  },
+  {
+    "label": "Sa janë?",
+    "icon": "apps/fruit-counting/assets/counts/apple/3.png",
+    "url": "apps/fruit-counting/",
+    "color": "#e6f8dc",
+    "version": "1.0.0"
+  },
+  {
+    "label": "Gjej formën",
+    "icon": "apps/shape-match/icon.svg",
+    "url": "apps/shape-match/",
+    "color": "#ece8ff",
+    "version": "1.0.0"
   }
 ]

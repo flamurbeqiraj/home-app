@@ -48,4 +48,4 @@ Use the game folder URL with a trailing `/`. This keeps relative CSS, JavaScript
 
 ## Audio source
 
-The Albanian color recordings used by Color Match were generated with [Narakeet Text to Audio](https://narakeet.online/tryme).
+The Albanian recordings used by the games were generated with [Narakeet Text to Audio](https://narakeet.online/tryme).
