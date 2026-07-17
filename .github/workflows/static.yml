@@ -35,7 +35,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Add Git Bash to PATH
         if: runner.os == 'Windows'
-        shell: cmd
+        shell: powershell
         run: |
           if not exist "%ProgramFiles%\Git\bin\bash.exe" (
             echo Git Bash was not found at %ProgramFiles%\Git\bin\bash.exe
