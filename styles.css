@@ -1,0 +1,82 @@
+:root {
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  color: #292748;
+  background: #f7f3ff;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  background:
+    radial-gradient(circle at 8% 10%, #ffe19c 0 5%, transparent 5.2%),
+    radial-gradient(circle at 94% 24%, #b8f2e6 0 7%, transparent 7.2%),
+    linear-gradient(145deg, #fdf8ff, #edf7ff);
+}
+
+.dashboard {
+  width: min(1400px, 100%);
+  min-height: 100vh;
+  margin: auto;
+  padding: max(28px, env(safe-area-inset-top)) max(24px, env(safe-area-inset-right)) max(32px, env(safe-area-inset-bottom)) max(24px, env(safe-area-inset-left));
+}
+
+.app-grid {
+  display: grid;
+  grid-template-columns: repeat(8, minmax(0, 1fr));
+  gap: clamp(12px, 1.5vw, 20px);
+}
+
+.app-card {
+  display: flex;
+  min-height: 150px;
+  padding: 14px 10px 12px;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 10px;
+  color: #292748;
+  text-align: center;
+  text-decoration: none;
+  border: 4px solid rgba(255,255,255,.9);
+  border-radius: 22px;
+  background: var(--card-color, #fff);
+  box-shadow: 0 9px 0 rgba(59, 51, 105, .12), 0 14px 25px rgba(59, 51, 105, .12);
+  transition: transform .15s ease, box-shadow .15s ease;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+.app-card:hover, .app-card:focus-visible {
+  outline: none;
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 12px 0 rgba(59, 51, 105, .12), 0 18px 30px rgba(59, 51, 105, .16);
+}
+
+.app-card:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(59, 51, 105, .12); }
+.app-icon { width: 82px; height: 82px; object-fit: cover; border-radius: 20px; background: rgba(255,255,255,.7); }
+.app-title { font-size: 1rem; font-weight: 900; line-height: 1.15; }
+.loading, .error { grid-column: 1 / -1; padding: 50px; text-align: center; font-size: 1.2rem; }
+.error { color: #a33b3b; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+
+@media (max-width: 1000px) {
+  .app-grid { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+}
+
+@media (max-width: 740px) {
+  .app-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+}
+
+@media (max-width: 520px) {
+  .dashboard { padding-inline: 16px; }
+  .app-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+  .app-card { min-height: 165px; padding: 15px 10px; border-radius: 22px; }
+  .app-icon { width: 82px; height: 82px; border-radius: 20px; }
+  .app-title { font-size: 1.05rem; }
+}
+
+@media (prefers-reduced-motion: reduce) { .app-card { transition: none; } }

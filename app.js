@@ -1,0 +1,44 @@
+const grid = document.querySelector("#app-grid");
+
+const cardColors = ["#ffe0e9", "#dff7e8", "#fff0bd", "#dfeaff", "#eee0ff", "#dff7f7"];
+
+async function loadApps() {
+  try {
+    const response = await fetch("apps/apps.json");
+    if (!response.ok) throw new Error(`Could not load apps (${response.status})`);
+
+    const apps = await response.json();
+    if (!Array.isArray(apps)) throw new Error("apps.json must contain a list");
+
+    grid.replaceChildren(...apps.map(createAppCard));
+  } catch (error) {
+    console.error(error);
+    const message = document.createElement("p");
+    message.className = "error";
+    message.textContent = "The games could not be loaded. Please start this folder with a local web server.";
+    grid.replaceChildren(message);
+  }
+}
+
+function createAppCard(app, index) {
+  const card = document.createElement("a");
+  card.className = "app-card";
+  card.href = app.url;
+  card.style.setProperty("--card-color", app.color || cardColors[index % cardColors.length]);
+  card.setAttribute("aria-label", `Open ${app.label}`);
+
+  const icon = document.createElement("img");
+  icon.className = "app-icon";
+  icon.src = app.icon;
+  icon.alt = "";
+  icon.draggable = false;
+
+  const title = document.createElement("span");
+  title.className = "app-title";
+  title.textContent = app.label;
+
+  card.append(icon, title);
+  return card;
+}
+
+loadApps();
