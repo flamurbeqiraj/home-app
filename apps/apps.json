@@ -19,5 +19,12 @@
     "url": "apps/shape-match/",
     "color": "#ece8ff",
     "version": "1.1.0"
+  },
+  {
+    "label": "Ku të shkojmë?",
+    "icon": "apps/direction-drive/icon.svg",
+    "url": "apps/direction-drive/",
+    "color": "#dff6ff",
+    "version": "1.0.0"
   }
 ]
