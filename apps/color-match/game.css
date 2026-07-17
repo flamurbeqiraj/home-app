@@ -1,0 +1,178 @@
+:root {
+  font-family: "Trebuchet MS", "Arial Rounded MT Bold", system-ui, sans-serif;
+  color: #362d56;
+  background: #fff6f9;
+  font-synthesis: none;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at 8% 18%, #fff0a6 0 5%, transparent 5.2%),
+    radial-gradient(circle at 92% 82%, #beeef2 0 7%, transparent 7.2%),
+    linear-gradient(145deg, #fff9fb, #f5efff);
+}
+
+button, a { -webkit-tap-highlight-color: transparent; }
+button { font: inherit; }
+
+.game-shell {
+  width: min(1050px, 100%);
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: auto;
+  padding: max(18px, env(safe-area-inset-top)) max(22px, env(safe-area-inset-right)) max(22px, env(safe-area-inset-bottom)) max(22px, env(safe-area-inset-left));
+  position: relative;
+}
+
+.game-header {
+  display: grid;
+  grid-template-columns: 70px 1fr 100px;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 16px;
+}
+
+.home-button, .score-box, .level-box {
+  min-height: 58px;
+  border-radius: 19px;
+  background: rgba(255, 255, 255, .9);
+  box-shadow: 0 5px 0 rgba(79, 62, 125, .12);
+}
+
+.home-button {
+  display: grid;
+  place-items: center;
+  color: #6c63ff;
+  font-size: 3rem;
+  line-height: 1;
+  text-decoration: none;
+}
+
+.level-box { display: flex; align-items: center; justify-content: center; gap: 14px; font-weight: 900; }
+.level-box span + span { padding-left: 14px; color: #77708e; border-left: 2px solid #e8e4f0; }
+.score-box { display: flex; align-items: center; justify-content: center; gap: 7px; font-size: 1.25rem; font-weight: 900; }
+
+.panel {
+  min-height: calc(100dvh - 118px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.start-screen h1, .end-screen h1 { margin: 10px 0; font-size: clamp(2.5rem, 7vw, 4.8rem); }
+.start-screen p, .end-screen p { max-width: 600px; margin: 5px 0 28px; font-size: clamp(1.15rem, 3vw, 1.65rem); font-weight: 700; }
+.rainbow, .result-picture { font-size: clamp(5rem, 15vw, 8rem); filter: drop-shadow(0 7px 0 rgba(70, 50, 100, .1)); }
+
+.primary-button {
+  min-width: 220px;
+  padding: 17px 34px;
+  border: 4px solid white;
+  border-radius: 24px;
+  color: white;
+  background: #6c63ff;
+  box-shadow: 0 8px 0 #4e48bd;
+  font-size: 1.45rem;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.primary-button:active { transform: translateY(5px); box-shadow: 0 3px 0 #4e48bd; }
+.play-screen { padding-top: 5px; }
+.timer-track { height: 15px; overflow: hidden; border: 3px solid white; border-radius: 20px; background: #e7e2ee; box-shadow: 0 3px 8px rgba(55, 40, 90, .1); }
+.timer-bar { width: 100%; height: 100%; border-radius: inherit; background: linear-gradient(90deg, #43c59e, #83e377); transform-origin: left; }
+
+.prompt-row { min-height: 115px; display: flex; align-items: center; justify-content: center; gap: 18px; text-align: center; }
+.prompt-row h1 { margin: 0; font-size: clamp(1.5rem, 4vw, 2.3rem); }
+.repeat-button {
+  flex: 0 0 auto;
+  width: 62px;
+  height: 62px;
+  border: 0;
+  border-radius: 50%;
+  background: #fff;
+  box-shadow: 0 5px 0 #dcd4e6;
+  font-size: 1.65rem;
+  cursor: pointer;
+}
+.repeat-button:active { transform: translateY(3px); box-shadow: 0 2px 0 #dcd4e6; }
+
+.choices {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: center;
+  gap: clamp(25px, 7vw, 70px);
+  min-height: 330px;
+  padding: 20px clamp(10px, 5vw, 55px);
+}
+
+.choice {
+  width: 100%;
+  aspect-ratio: 1;
+  max-width: 220px;
+  justify-self: center;
+  border: 9px solid rgba(255, 255, 255, .95);
+  background: var(--choice-color);
+  box-shadow: 0 10px 0 rgba(52, 40, 82, .18), 0 16px 25px rgba(52, 40, 82, .12);
+  cursor: pointer;
+  transition: transform .12s ease, opacity .12s ease;
+}
+
+.choice.square { border-radius: 25px; }
+.choice.circle { border-radius: 50%; }
+.choice.triangle {
+  aspect-ratio: auto;
+  height: 190px;
+  border: 0;
+  border-radius: 18px;
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  box-shadow: none;
+  filter: drop-shadow(0 10px 0 rgba(52, 40, 82, .18)) drop-shadow(0 8px 12px rgba(52, 40, 82, .12));
+}
+
+.choice:hover:not(:disabled), .choice:focus-visible { transform: scale(1.06); outline: 7px solid #fff; outline-offset: 5px; }
+.choice:active:not(:disabled) { transform: translateY(6px); }
+.choice:disabled { cursor: default; }
+.choice.dimmed { opacity: .35; }
+.choice.correct { animation: correct-pop .55s ease-in-out infinite alternate; outline: 8px solid #50c878; outline-offset: 6px; }
+.choice.wrong { animation: wrong-shake .35s ease-in-out; outline: 8px solid #ff5364; outline-offset: 6px; }
+
+.feedback { min-height: 48px; margin: 4px 0 0; text-align: center; font-size: clamp(1.25rem, 3vw, 1.7rem); font-weight: 900; }
+.feedback.good { color: #16865d; }
+.feedback.try { color: #d14354; }
+.dashboard-link { margin-top: 24px; color: #60578a; font-size: 1.1rem; font-weight: 900; }
+.confetti { position: fixed; inset: 0; overflow: hidden; pointer-events: none; }
+.confetti-piece { position: absolute; top: -10vh; width: 13px; height: 25px; animation: confetti-fall var(--duration) linear var(--delay) forwards; }
+.hidden { display: none !important; }
+
+@keyframes correct-pop { to { transform: scale(1.1) rotate(3deg); } }
+@keyframes wrong-shake { 25% { transform: translateX(-10px); } 50% { transform: translateX(10px); } 75% { transform: translateX(-7px); } }
+@keyframes confetti-fall { to { transform: translate3d(var(--drift), 115vh, 0) rotate(760deg); } }
+
+@media (max-width: 650px) {
+  .game-shell { padding-inline: 14px; }
+  .game-header { grid-template-columns: 55px 1fr 75px; gap: 8px; }
+  .home-button, .score-box, .level-box { min-height: 50px; border-radius: 15px; }
+  .home-button { font-size: 2.5rem; }
+  .level-box { gap: 7px; font-size: .9rem; }
+  .level-box span + span { padding-left: 7px; }
+  .score-box { font-size: 1rem; }
+  .choices { gap: 12px; min-height: 240px; padding-inline: 0; }
+  .choice { border-width: 6px; border-radius: 16px; }
+  .choice.triangle { height: 120px; }
+  .prompt-row { min-height: 105px; }
+  .repeat-button { width: 54px; height: 54px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .choice { transition: none; }
+  .choice.correct { animation: none; }
+  .confetti-piece { animation-duration: .01ms; }
+}

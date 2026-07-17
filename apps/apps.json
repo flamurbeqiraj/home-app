@@ -1,14 +1,8 @@
 [
   {
-    "label": "Color Match",
+    "label": "Gjej ngjyrën",
     "icon": "apps/color-match/icon.svg",
-    "url": "apps/color-match/index.html",
+    "url": "apps/color-match/",
     "color": "#ffe0e9"
-  },
-  {
-    "label": "Number Fun",
-    "icon": "apps/number-fun/icon.svg",
-    "url": "apps/number-fun/index.html",
-    "color": "#dff7e8"
   }
 ]

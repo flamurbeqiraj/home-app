@@ -22,9 +22,11 @@ Then open the address shown in the terminal (usually `http://localhost:3000`).
 {
   "label": "My Game",
   "icon": "apps/my-game/icon.png",
-  "url": "apps/my-game/index.html",
+  "url": "apps/my-game/",
   "color": "#dfeaff"
 }
 ```
 
 `icon` can also be a full image URL such as `https://example.com/icon.png`. The optional `color` controls the tile background.
+
+Use the game folder URL with a trailing `/`. This keeps relative CSS, JavaScript, audio, and image paths working with servers that use clean URLs.
