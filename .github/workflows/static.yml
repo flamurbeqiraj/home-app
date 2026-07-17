@@ -35,7 +35,7 @@ jobs:
         uses: actions/configure-pages@v5
       - name: Add Git Bash to PATH
         if: runner.os == 'Windows'
-        shell: pwsh
+        shell: powershell
         run: |
           $gitRoot = Split-Path (Split-Path (Get-Command git).Source)
           $bashDirectory = Join-Path $gitRoot "bin"
