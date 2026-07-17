@@ -3,6 +3,7 @@
     "label": "Gjej ngjyrën",
     "icon": "apps/color-match/icon.svg",
     "url": "apps/color-match/",
-    "color": "#ffe0e9"
+    "color": "#ffe0e9",
+    "version": "1.0.0"
   }
 ]

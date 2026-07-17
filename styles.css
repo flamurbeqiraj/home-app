@@ -58,7 +58,9 @@ body {
 
 .app-card:active { transform: translateY(4px); box-shadow: 0 4px 0 rgba(59, 51, 105, .12); }
 .app-icon { width: 82px; height: 82px; object-fit: cover; border-radius: 20px; background: rgba(255,255,255,.7); }
+.app-details { display: flex; align-items: center; flex-direction: column; gap: 3px; }
 .app-title { font-size: 1rem; font-weight: 900; line-height: 1.15; }
+.app-version { color: #77708e; font-size: .72rem; font-weight: 800; line-height: 1; }
 .loading, .error { grid-column: 1 / -1; padding: 50px; text-align: center; font-size: 1.2rem; }
 .error { color: #a33b3b; }
 .visually-hidden { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }

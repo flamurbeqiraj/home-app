@@ -14,11 +14,6 @@ const LEVEL_COUNT = 10;
 const ROUNDS_PER_LEVEL = 3;
 const TOTAL_ROUNDS = LEVEL_COUNT * ROUNDS_PER_LEVEL;
 const PASS_PERCENT = 90;
-const COLOR_AUDIO = new Map(COLORS.map(color => {
-  const audio = new Audio(`audio/${color.id}.mp3`);
-  audio.preload = "auto";
-  return [color.id, audio];
-}));
 
 const elements = {
   startScreen: document.querySelector("#start-screen"),
@@ -36,7 +31,8 @@ const elements = {
   resultPicture: document.querySelector("#result-picture"),
   resultTitle: document.querySelector("#result-title"),
   resultScore: document.querySelector("#result-score"),
-  confetti: document.querySelector("#confetti")
+  confetti: document.querySelector("#confetti"),
+  colorAudio: document.querySelector("#color-audio")
 };
 
 let level;
@@ -46,7 +42,7 @@ let currentColor;
 let timerId;
 let advanceId;
 let roundLocked;
-let playingColorAudio;
+let feedbackContext;
 
 elements.startButton.addEventListener("click", startGame);
 elements.restartButton.addEventListener("click", startGame);
@@ -56,6 +52,7 @@ function startGame() {
   clearTimeout(advanceId);
   clearInterval(timerId);
   stopColorAudio();
+  unlockFeedbackAudio();
   elements.confetti.replaceChildren();
   level = 1;
   roundInLevel = 1;
@@ -102,6 +99,7 @@ function chooseColor(color, selectedButton) {
 function finishRound(isCorrect, selectedButton) {
   roundLocked = true;
   clearInterval(timerId);
+  stopColorAudio();
   elements.timerBar.style.transform = "scaleX(0)";
 
   const buttons = [...elements.choices.querySelectorAll(".choice")];
@@ -117,14 +115,14 @@ function finishRound(isCorrect, selectedButton) {
     elements.score.textContent = correctAnswers;
     elements.feedback.className = "feedback good";
     elements.feedback.textContent = "Shumë mirë! E gjete ngjyrën e duhur!";
-    playTone(660, 0.12, 880);
+    playTone(660, 0.36, 880);
   } else {
     selectedButton?.classList.add("wrong");
     elements.feedback.className = "feedback try";
     elements.feedback.textContent = selectedButton
       ? `Provo sërish! Ngjyra e duhur ishte: ${currentColor.name}.`
       : `Koha mbaroi! Ngjyra e duhur ishte: ${currentColor.name}.`;
-    playTone(260, 0.16, 220);
+    playTone(280, 0.34, 210);
   }
 
   advanceId = setTimeout(nextRound, 1400);
@@ -178,37 +176,54 @@ function showResult() {
 function playColorAudio(color) {
   if (!color) return;
   stopColorAudio();
-  playingColorAudio = COLOR_AUDIO.get(color.id);
-  playingColorAudio.currentTime = 0;
-  playingColorAudio.play().catch(error => {
+  elements.colorAudio.src = `audio/${color.id}.mp3`;
+  elements.colorAudio.play().catch(error => {
     console.debug("Regjistrimi zanor nuk mund të luhej", error);
   });
 }
 
 function stopColorAudio() {
-  if (!playingColorAudio) return;
-  playingColorAudio.pause();
-  playingColorAudio.currentTime = 0;
-  playingColorAudio = null;
+  elements.colorAudio.pause();
+  if (elements.colorAudio.readyState > 0) elements.colorAudio.currentTime = 0;
+}
+
+function unlockFeedbackAudio() {
+  try {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (!AudioContext) return null;
+    if (!feedbackContext || feedbackContext.state === "closed") {
+      feedbackContext = new AudioContext();
+    }
+    if (feedbackContext.state === "suspended") feedbackContext.resume();
+    return feedbackContext;
+  } catch (error) {
+    console.debug("Efektet zanore nuk janë të disponueshme", error);
+    return null;
+  }
 }
 
 function playTone(firstFrequency, duration, secondFrequency) {
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    const context = new AudioContext();
+    const context = unlockFeedbackAudio();
+    if (!context) return;
     const oscillator = context.createOscillator();
     const gain = context.createGain();
     oscillator.connect(gain);
     gain.connect(context.destination);
-    oscillator.frequency.setValueAtTime(firstFrequency, context.currentTime);
-    oscillator.frequency.linearRampToValueAtTime(secondFrequency, context.currentTime + duration);
-    gain.gain.setValueAtTime(0.12, context.currentTime);
-    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
-    oscillator.start();
-    oscillator.stop(context.currentTime + duration);
-    oscillator.addEventListener("ended", () => context.close());
+    oscillator.type = "sine";
+
+    const start = context.currentTime + 0.015;
+    const end = start + duration;
+    oscillator.frequency.setValueAtTime(firstFrequency, start);
+    oscillator.frequency.linearRampToValueAtTime(secondFrequency, end - 0.04);
+    gain.gain.setValueAtTime(0.0001, start);
+    gain.gain.linearRampToValueAtTime(0.11, start + 0.035);
+    gain.gain.setValueAtTime(0.11, end - 0.09);
+    gain.gain.exponentialRampToValueAtTime(0.0001, end);
+    oscillator.start(start);
+    oscillator.stop(end + 0.02);
   } catch (error) {
-    console.debug("Sound effect unavailable", error);
+    console.debug("Efekti zanor nuk mund të luhej", error);
   }
 }
 

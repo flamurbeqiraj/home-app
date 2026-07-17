@@ -4,7 +4,7 @@ const cardColors = ["#ffe0e9", "#dff7e8", "#fff0bd", "#dfeaff", "#eee0ff", "#dff
 
 async function loadApps() {
   try {
-    const response = await fetch("apps/apps.json");
+    const response = await fetch("apps/apps.json", { cache: "no-store" });
     if (!response.ok) throw new Error(`Lojërat nuk u ngarkuan (${response.status})`);
 
     const apps = await response.json();
@@ -37,7 +37,18 @@ function createAppCard(app, index) {
   title.className = "app-title";
   title.textContent = app.label;
 
-  card.append(icon, title);
+  const details = document.createElement("span");
+  details.className = "app-details";
+  details.append(title);
+
+  if (app.version) {
+    const version = document.createElement("span");
+    version.className = "app-version";
+    version.textContent = app.version;
+    details.append(version);
+  }
+
+  card.append(icon, details);
   return card;
 }
 
