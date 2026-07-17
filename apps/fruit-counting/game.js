@@ -214,7 +214,7 @@ function nextRound() {
 
 function startTimer() {
   clearInterval(timerId);
-  const seconds = 20 - (level - 1) * 1.2;
+  const seconds = 40 - (level - 1) * 2.4;
   const duration = seconds * 1000;
   const deadline = performance.now() + duration;
   elements.timerBar.style.transform = "scaleX(1)";

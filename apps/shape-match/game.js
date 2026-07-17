@@ -177,7 +177,7 @@ function nextRound() {
 
 function startTimer() {
   clearInterval(timerId);
-  const seconds = 8 - (level - 1) * 0.5;
+  const seconds = 16 - (level - 1) * 1;
   const duration = seconds * 1000;
   const deadline = performance.now() + duration;
   elements.timerBar.style.transform = "scaleX(1)";

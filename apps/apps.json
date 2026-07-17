@@ -11,13 +11,13 @@
     "icon": "apps/fruit-counting/assets/counts/apple/3.png",
     "url": "apps/fruit-counting/",
     "color": "#e6f8dc",
-    "version": "1.0.0"
+    "version": "1.1.0"
   },
   {
     "label": "Gjej formën",
     "icon": "apps/shape-match/icon.svg",
     "url": "apps/shape-match/",
     "color": "#ece8ff",
-    "version": "1.0.0"
+    "version": "1.1.0"
   }
 ]
