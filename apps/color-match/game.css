@@ -128,13 +128,22 @@ button { font: inherit; }
 .choice.square { border-radius: 25px; }
 .choice.circle { border-radius: 50%; }
 .choice.triangle {
-  aspect-ratio: auto;
-  height: 190px;
+  position: relative;
+  aspect-ratio: 1;
   border: 0;
-  border-radius: 18px;
+  border-radius: 0;
+  background: white;
   clip-path: polygon(50% 0, 100% 100%, 0 100%);
   box-shadow: none;
   filter: drop-shadow(0 10px 0 rgba(52, 40, 82, .18)) drop-shadow(0 8px 12px rgba(52, 40, 82, .12));
+}
+
+.choice.triangle::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--choice-color);
+  clip-path: polygon(50% 7%, 94% 94%, 6% 94%);
 }
 
 .choice:hover:not(:disabled), .choice:focus-visible { transform: scale(1.06); outline: 7px solid #fff; outline-offset: 5px; }
@@ -166,7 +175,7 @@ button { font: inherit; }
   .score-box { font-size: 1rem; }
   .choices { gap: 12px; min-height: 240px; padding-inline: 0; }
   .choice { border-width: 6px; border-radius: 16px; }
-  .choice.triangle { height: 120px; }
+  .choice.triangle { height: auto; }
   .prompt-row { min-height: 105px; }
   .repeat-button { width: 54px; height: 54px; }
 }

@@ -14,6 +14,11 @@ const LEVEL_COUNT = 10;
 const ROUNDS_PER_LEVEL = 3;
 const TOTAL_ROUNDS = LEVEL_COUNT * ROUNDS_PER_LEVEL;
 const PASS_PERCENT = 90;
+const COLOR_AUDIO = new Map(COLORS.map(color => {
+  const audio = new Audio(`audio/${color.id}.mp3`);
+  audio.preload = "auto";
+  return [color.id, audio];
+}));
 
 const elements = {
   startScreen: document.querySelector("#start-screen"),
@@ -41,15 +46,16 @@ let currentColor;
 let timerId;
 let advanceId;
 let roundLocked;
+let playingColorAudio;
 
 elements.startButton.addEventListener("click", startGame);
 elements.restartButton.addEventListener("click", startGame);
-elements.repeatButton.addEventListener("click", () => speakColor(currentColor));
+elements.repeatButton.addEventListener("click", () => playColorAudio(currentColor));
 
 function startGame() {
   clearTimeout(advanceId);
   clearInterval(timerId);
-  window.speechSynthesis?.cancel();
+  stopColorAudio();
   elements.confetti.replaceChildren();
   level = 1;
   roundInLevel = 1;
@@ -84,7 +90,7 @@ function startRound() {
   });
 
   elements.choices.replaceChildren(...buttons);
-  speakColor(currentColor);
+  playColorAudio(currentColor);
   startTimer();
 }
 
@@ -155,7 +161,7 @@ function startTimer() {
 
 function showResult() {
   clearInterval(timerId);
-  window.speechSynthesis?.cancel();
+  stopColorAudio();
   elements.playScreen.classList.add("hidden");
   elements.endScreen.classList.remove("hidden");
 
@@ -169,15 +175,21 @@ function showResult() {
   if (passed) createConfetti();
 }
 
-function speakColor(color) {
-  if (!color || !("speechSynthesis" in window)) return;
-  window.speechSynthesis.cancel();
-  const prompt = new SpeechSynthesisUtterance(color.name);
-  prompt.lang = "sq-AL";
-  prompt.rate = 0.82;
-  prompt.pitch = 1.12;
-  prompt.volume = 1;
-  window.speechSynthesis.speak(prompt);
+function playColorAudio(color) {
+  if (!color) return;
+  stopColorAudio();
+  playingColorAudio = COLOR_AUDIO.get(color.id);
+  playingColorAudio.currentTime = 0;
+  playingColorAudio.play().catch(error => {
+    console.debug("Regjistrimi zanor nuk mund të luhej", error);
+  });
+}
+
+function stopColorAudio() {
+  if (!playingColorAudio) return;
+  playingColorAudio.pause();
+  playingColorAudio.currentTime = 0;
+  playingColorAudio = null;
 }
 
 function playTone(firstFrequency, duration, secondFrequency) {
