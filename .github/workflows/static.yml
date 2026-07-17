@@ -33,8 +33,21 @@ jobs:
         uses: actions/checkout@v4
       - name: Setup Pages
         uses: actions/configure-pages@v5
+      - name: Add Git Bash to PATH
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $gitRoot = Split-Path (Split-Path (Get-Command git).Source)
+          $bashDirectory = Join-Path $gitRoot "bin"
+          $bash = Join-Path $bashDirectory "bash.exe"
+
+          if (-not (Test-Path $bash)) {
+            throw "Git Bash was not found at $bash"
+          }
+
+          $bashDirectory | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
+        uses: actions/upload-pages-artifact@v5
         with:
           # Upload entire repository
           path: '.'
